@@ -1,0 +1,51 @@
+const mongoose = require("mongoose");
+
+const referredUser = new mongoose.Schema(
+  {
+    userName: { type: String, required: true },
+    userType: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, default: "" },
+    age: { type: String, default: "" },
+    bankAccountName: { type: String, default: "" },
+    bankAccountNumber: { type: String, default: "" },
+    bankBranchName: { type: String, default: "" },
+    bloodGroup: { type: String, default: "" },
+    educationDetails: { type: [Object], default: [] },
+    country: { type: String, default: "" },
+    dateOfBirth: { type: Date, default: "" },
+    district: { type: String, default: "" },
+    doorFlatNumber: { type: String, default: "" },
+    facebook: { type: String, default: "" },
+    fatherName: { type: String, default: "" },
+    gender: { type: String, default: "" },
+    ifscCode: { type: String, default: "" },
+    instagram: { type: String, default: "" },
+    jobDescription: { type: [Object], default: "" },
+    joinedDate: { type: Date, default: "" },
+    landMark: { type: String, default: "" },
+    monthlySalary: { type: String, default: "" },
+    motherName: { type: String, default: "" },
+    newForWorking: { type: String, default: "" },
+    panCardNumber: { type: String, default: "" },
+    phoneNumber: { type: String, default: "", required: true },
+    pinCode: { type: String, default: "" },
+    state: { type: String, default: "" },
+    streetName: { type: String, default: "" },
+    verified: { type: Boolean, default: false },
+    whatsappNumber: { type: String, default: "" },
+    userType: { type: String, required: true },
+    imageACCESSKEY: { type: String, default: "" },
+    workingOption: { type: [String], default: [] },
+    referredBy: { type: Object, default: {} },
+    otherDetails: { type: Object, default: {} },
+    status: {
+      type: String,
+      enum: ["completed", "Pending"],
+      default: "Pending",
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("referredUser", referredUser);
