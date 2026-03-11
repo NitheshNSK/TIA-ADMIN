@@ -14,9 +14,11 @@
     "compression": "^1.8.1",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
+    "exceljs": "^4.4.0",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.3.1",
+    "handlebars": "^4.7.8",
     "helmet": "^8.1.0",
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
@@ -26,6 +28,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "redis": "^5.10.0",
+    "resend": "^6.9.3",
     "socket.io": "^4.8.3"
   }
 }

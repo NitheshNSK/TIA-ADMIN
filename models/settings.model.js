@@ -24,6 +24,25 @@ const SettingsSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  emailProvider: {
+    type: String,
+    default: "resend",
+  },
+
+  resendApiKey: {
+    type: String,
+    default: "",
+  },
+
+  emailFromName: {
+    type: String,
+    default: "TIA Support",
+  },
+
+  emailFromAddress: {
+    type: String,
+    default: "support@tiaedu.in",
+  },
 });
 const Settings = mongoose.model("Settings", SettingsSchema);
 
