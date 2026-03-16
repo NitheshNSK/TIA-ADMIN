@@ -1,0 +1,290 @@
+{
+  "info": {
+    "name": "TIA Admin API",
+    "_postman_id": "b7c4e7a6-0f5e-4c2e-9d4e-6e4e8f6c9a12",
+    "description": "Postman collection for TIA Admin Backend APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8081/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/admin/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"123456\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.token) {",
+                  "    pm.collectionVariables.set('token', json.token);",
+                  "  }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Check Token",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/check-token"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/users/USER_ID"
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/users/USER_ID",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"Updated Name\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add Auto User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/addautouser",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\",\n  \"phoneNumber\": \"9876543210\",\n  \"userType\": \"vip\"\n}"
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "VIP Franchise",
+      "item": [
+        {
+          "name": "Get VIP Franchise",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/vipfranchise?page=1&limit=10"
+          }
+        },
+        {
+          "name": "Add VIP Franchise",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/vipfranchise",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"VIP Franchise\",\n  \"email\": \"vip@example.com\",\n  \"phoneNumber\": \"9999999999\"\n}"
+            }
+          }
+        },
+        {
+          "name": "VIP Franchise Referrals",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/vipfranchise/referals?page=1&limit=10"
+          }
+        },
+        {
+          "name": "Export VIP Franchise Excel",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/vipfranchise/export"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Franchise",
+      "item": [
+        {
+          "name": "Get Franchise",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/franchise?page=1&limit=10"
+          }
+        },
+        {
+          "name": "Franchise Referrals",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/franchise/referals?page=1&limit=10"
+          }
+        },
+        {
+          "name": "Export Franchise Excel",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/franchise/export"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "Add Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/student",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"personalInfo\": {\n    \"studentName\": \"Test Student\",\n    \"phoneNumber\": \"8888888888\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Students",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/student?page=1&limit=10"
+          }
+        },
+        {
+          "name": "Export Students Excel",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/student/export"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Email Templates",
+      "item": [
+        {
+          "name": "Create Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/email-template",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templateName\": \"welcome_user\",\n  \"subject\": \"Welcome\",\n  \"htmlContent\": \"<h1>Hello {{username}}</h1>\",\n  \"variables\": [\"username\"]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Templates",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/email-template"
+          }
+        },
+        {
+          "name": "Update Template",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/email-template/TEMPLATE_ID",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"Updated Subject\"\n}"
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Get Settings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/admin/settings"
+          }
+        },
+        {
+          "name": "Update Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/admin/settings",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resendApiKey\": \"re_xxxxxxxxx\",\n  \"emailFromName\": \"TIA Support\",\n  \"emailFromAddress\": \"support@tiaedu.in\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
